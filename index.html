@@ -1,305 +1,914 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Massawar Ali Khan | Network & IT Infrastructure Engineer</title>
-  <style>
-    :root {
-      --bg: #0b1120;
-      --surface: #111827;
-      --card: #1e293b;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --border: #334155;
-      --code-bg: #0f172a;
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#060913',
+            surface: '#0d1425',
+            card: 'rgba(17, 25, 44, 0.72)',
+          },
+          animation: {
+            'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 5s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background: var(--bg); color: var(--text); line-height: 1.6; }
-    a { color: var(--accent); text-decoration: none; }
-    .container { max-width: 1050px; margin: 0 auto; padding: 0 20px; }
+  </script>
 
-    /* Navbar */
-    header { background: rgba(11, 17, 32, 0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
-    .logo { font-size: 1.25rem; font-weight: 700; color: var(--text); letter-spacing: 0.5px; }
-    .logo span { color: var(--accent); }
-    .nav-links a { margin-left: 20px; color: var(--muted); font-size: 0.95rem; transition: 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
+  <style>
+    /* Custom Cyber / Cloud Infrastructure Styling */
+    body {
+      background-color: #060913;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
 
-    /* Hero */
-    .hero { padding: 75px 0 55px; border-bottom: 1px solid var(--border); }
-    .badge { display: inline-block; background: rgba(56, 189, 248, 0.12); color: var(--accent); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; border: 1px solid rgba(56, 189, 248, 0.3); }
-    .hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 14px; }
-    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 740px; margin-bottom: 28px; }
-    .btn-group { display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn { padding: 12px 22px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
-    .btn-primary { background: var(--accent); color: #0f172a; border: none; }
-    .btn-primary:hover { background: var(--accent-hover); color: #fff; }
-    .btn-outline { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    /* Animated Tech Grid Overlay */
+    .tech-grid {
+      background-size: 42px 42px;
+      background-image: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 20%, #000 50%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 20%, #000 50%, transparent 100%);
+    }
 
-    /* Sections */
-    section { padding: 55px 0; border-bottom: 1px solid var(--border); }
-    h2 { font-size: 1.7rem; margin-bottom: 26px; color: var(--text); }
-    h2 span { color: var(--accent); }
+    /* Glassmorphic Card with Glowing Hover Border */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(51, 65, 85, 0.65);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
 
-    /* Grids & Cards */
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: transform 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
-    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
-    .card h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--accent); }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-    .tag { background: var(--surface); border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-size: 0.82rem; color: var(--text); }
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #38bdf8, #10b981, transparent);
+      transition: left 0.6s ease;
+    }
 
-    /* Code Repo Cards */
-    .repo-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.88rem; }
-    .code-pill { font-family: monospace; background: var(--code-bg); color: #7dd3fc; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border); }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(56, 189, 248, 0.55);
+      box-shadow: 0 20px 40px -15px rgba(6, 182, 212, 0.18), 0 0 20px -5px rgba(59, 130, 246, 0.15);
+    }
 
-    /* Experience */
-    .timeline-item { background: var(--surface); border-left: 4px solid var(--accent); padding: 22px; border-radius: 0 10px 10px 0; margin-bottom: 20px; }
-    .timeline-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
-    .timeline-header h3 { font-size: 1.2rem; }
-    .timeline-header span { color: var(--accent); font-size: 0.9rem; font-weight: 600; }
-    .timeline-item ul { padding-left: 20px; color: var(--muted); }
-    .timeline-item li { margin-bottom: 6px; }
+    .glass-card:hover::before {
+      left: 100%;
+    }
 
-    /* Contact Box */
-    .contact-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 34px; text-align: center; }
-    .contact-box p { color: var(--muted); margin-bottom: 22px; max-width: 600px; margin-left: auto; margin-right: auto; }
-    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    /* Skill Pill Hover Effect */
+    .skill-tag {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      transition: all 0.25s ease;
+    }
+    .skill-tag:hover {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+    }
 
-    footer { text-align: center; padding: 28px 0; color: var(--muted); font-size: 0.9rem; }
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      .nav-links { display: none; }
-      .grid-2 { grid-template-columns: 1fr; }
+    /* Terminal Cursor Blink */
+    .cursor-blink {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: #38bdf8;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060913;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
     }
   </style>
 </head>
-<body>
+<body class="relative selection:bg-cyan-500 selection:text-slate-950">
 
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">Massawar<span>.IT</span></div>
-        <div class="nav-links">
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#scripts">GitHub Scripts</a>
-          <a href="#contact">Contact</a>
+  <!-- Background Ambient Glow Orbs & Tech Grid -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-0 tech-grid"></div>
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-[130px] animate-pulse-slow"></div>
+    <div class="absolute top-1/4 -right-32 w-96 h-96 bg-blue-600/15 rounded-full blur-[140px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-emerald-500/10 rounded-full blur-[130px] animate-pulse-slow" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-50 bg-[#060913]/85 backdrop-blur-xl border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center justify-between h-18 py-4">
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 font-extrabold text-lg shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
+            M
+          </div>
+          <div class="text-xl font-bold tracking-tight text-white">
+            Massawar<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">.IT</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+          <a href="#skills" class="hover:text-cyan-400 transition">Skills</a>
+          <a href="#experience" class="hover:text-cyan-400 transition">Experience</a>
+          <a href="#projects" class="hover:text-cyan-400 transition">Projects</a>
+          <a href="#scripts" class="hover:text-cyan-400 transition">GitHub Scripts</a>
+          <a href="#certifications" class="hover:text-cyan-400 transition">Certifications</a>
+          <a href="#contact" class="px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500 hover:text-slate-950 font-semibold transition">
+            Hire / Contact
+          </a>
         </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">
+          <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
       </nav>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-slate-800/80 mt-2 pt-3 space-y-2">
+        <a href="#skills" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-cyan-400">Skills</a>
+        <a href="#experience" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-cyan-400">Experience</a>
+        <a href="#projects" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-cyan-400">Projects</a>
+        <a href="#scripts" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-cyan-400">GitHub Scripts</a>
+        <a href="#certifications" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-cyan-400">Certifications</a>
+        <a href="#contact" class="block px-3 py-2 rounded-lg bg-cyan-500/15 text-cyan-300 font-semibold">Contact Me</a>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="badge">Open to Opportunities: Saudi Arabia (GCC) & India</div>
-      <h1>Massawar Ali Khan</h1>
-      <p>
-        <strong>Network & IT Infrastructure Engineer</strong> with 6+ years of production experience in Enterprise Network Administration, FortiGate Firewall Security, Windows Server / Active Directory, PowerShell Automation, and Microsoft Azure Cloud Operations.
-      </p>
-      <div class="btn-group">
-        <!-- Upload your PDF resume as Massawar_Ali_Khan_Resume.pdf in the same repo -->
-        <a href="Massawar_Ali_Khan_Resume.pdf" download class="btn btn-primary">&#11015; Download Resume (PDF)</a>
-        <a href="https://github.com/iam0khan" target="_blank" class="btn btn-outline">GitHub (@iam0khan)</a>
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
-      </div>
-    </section>
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Core Skills -->
-    <section id="skills">
-      <h2>Technical <span>Expertise</span></h2>
-      <div class="grid-3">
-        <div class="card">
-          <div>
-            <h3>Networking & Security</h3>
-            <div class="tags">
-              <span class="tag">FortiGate Firewall (CLI)</span>
-              <span class="tag">IPSec Site-to-Site VPN</span>
-              <span class="tag">Routing & Switching</span>
-              <span class="tag">VLANs & Subnetting</span>
-              <span class="tag">DNS / DHCP</span>
-              <span class="tag">Network Troubleshooting</span>
-              <span class="tag">IP Surveillance Infra</span>
+    <!-- HERO SECTION -->
+    <section class="pt-12 pb-16 md:pt-20 md:pb-20 border-b border-slate-800/80">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left Column: Intro & CTAs -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Live Status Badge -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-semibold">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            Open to Opportunities: Saudi Arabia (GCC) &amp; India
+          </div>
+
+          <!-- Main Heading -->
+          <div class="space-y-2">
+            <p class="text-cyan-400 font-mono text-sm tracking-wider uppercase font-semibold">Enterprise Network &amp; Systems Specialist</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+              Massawar Ali <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-emerald-400">Khan</span>
+            </h1>
+          </div>
+
+          <!-- Bio Summary -->
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
+            <strong class="text-white font-semibold">Network &amp; IT Infrastructure Engineer</strong> with <span class="text-cyan-300 font-semibold">6+ years</span> of production experience in Enterprise Network Administration, FortiGate Firewall Security, Windows Server / Active Directory, PowerShell Automation, and Microsoft Azure Cloud Operations.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3.5 pt-2">
+            <!-- Upload your PDF resume as Massawar_Ali_Khan_Resume.pdf in the same repo -->
+            <a href="Massawar_Ali_Khan_Resume.pdf" download class="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-cyan-500/25 hover:shadow-cyan-400/40 hover:-translate-y-0.5 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              Download Resume (PDF)
+            </a>
+
+            <a href="https://github.com/iam0khan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-white font-semibold text-sm sm:text-base transition hover:-translate-y-0.5">
+              <svg class="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              GitHub (@iam0khan)
+            </a>
+
+            <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400 text-slate-200 hover:text-white font-semibold text-sm sm:text-base transition hover:-translate-y-0.5">
+              Contact Me
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Live CLI Terminal Card -->
+        <div class="lg:col-span-5">
+          <div class="glass-card rounded-2xl border border-slate-700/80 shadow-2xl overflow-hidden animate-float">
+            <!-- Terminal Window Bar -->
+            <div class="bg-slate-900/95 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/90"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-400/90"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/90"></span>
+                <span class="ml-2 text-xs font-mono text-slate-400">infra-console ~ ssh</span>
+              </div>
+              <!-- CLI Mode Switch Tabs -->
+              <div class="flex bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs font-mono">
+                <button id="tab-forti" onclick="switchTerminalTab('forti')" class="px-2.5 py-1 rounded-md bg-cyan-500/20 text-cyan-300 font-semibold transition">
+                  FortiGate CLI
+                </button>
+                <button id="tab-ps" onclick="switchTerminalTab('ps')" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-slate-200 transition">
+                  PowerShell
+                </button>
+              </div>
+            </div>
+
+            <!-- Terminal Output Body -->
+            <div class="p-5 font-mono text-xs sm:text-sm leading-relaxed min-h-[250px] bg-[#070b16]/90 text-slate-200 flex flex-col justify-between">
+              <div id="terminal-content" class="space-y-1.5 whitespace-pre-wrap"></div>
+              
+              <!-- Bottom Status Bar inside Terminal -->
+              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span id="terminal-status">IPSec Tunnel: UP (Encrypted)</span>
+                </span>
+                <span class="text-cyan-400">SLA: 99.9%</span>
+              </div>
             </div>
           </div>
         </div>
-        <div class="card">
+
+      </div>
+
+      <!-- Quick Impact Metrics Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-slate-800/60">
+        <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-center gap-3.5">
+          <div class="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
           <div>
-            <h3>Systems & Identity</h3>
-            <div class="tags">
-              <span class="tag">Windows Server</span>
-              <span class="tag">Active Directory (AD DS)</span>
-              <span class="tag">Group Policy (GPO)</span>
-              <span class="tag">Microsoft Entra ID</span>
-              <span class="tag">Microsoft 365 Admin</span>
-              <span class="tag">Microsoft Intune</span>
-              <span class="tag">Domain Operations</span>
+            <div class="text-xl sm:text-2xl font-extrabold text-white">6+ Years</div>
+            <div class="text-xs text-slate-400">Production Infra Exp.</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-center gap-3.5">
+          <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-extrabold text-white">FortiGate</div>
+            <div class="text-xs text-slate-400">CLI &amp; IPSec VPN Security</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-center gap-3.5">
+          <div class="p-2.5 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-extrabold text-white">PowerShell</div>
+            <div class="text-xs text-slate-400">AD &amp; Domain Automation</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 flex items-center gap-3.5">
+          <div class="p-2.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-xl sm:text-2xl font-extrabold text-white">Hybrid Cloud</div>
+            <div class="text-xs text-slate-400">Azure, Entra ID &amp; Intune</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE SKILLS SECTION -->
+    <section id="skills" class="py-16 border-b border-slate-800/80 reveal">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold">// Core Competencies</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">
+            Technical <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Expertise</span>
+          </h2>
+        </div>
+        <p class="text-slate-400 text-sm max-w-md">
+          Production-tested skills across enterprise routing, perimeter security, Active Directory administration, and automation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Skill Card 1: Networking & Security -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="p-2.5 rounded-xl bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white">Networking &amp; Security</h3>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">FortiGate Firewall (CLI)</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">IPSec Site-to-Site VPN</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Routing &amp; Switching</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">VLANs &amp; Subnetting</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">DNS / DHCP</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Network Troubleshooting</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">IP Surveillance Infra</span>
             </div>
           </div>
         </div>
-        <div class="card">
+
+        <!-- Skill Card 2: Systems & Identity -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
           <div>
-            <h3>Cloud, Automation & DevOps</h3>
-            <div class="tags">
-              <span class="tag">PowerShell Scripting</span>
-              <span class="tag">Microsoft Azure</span>
-              <span class="tag">DevOps Fundamentals</span>
-              <span class="tag">Bulk AD Provisioning</span>
-              <span class="tag">SQL</span>
-              <span class="tag">ITSM & SLA Support</span>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="p-2.5 rounded-xl bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white">Systems &amp; Identity</h3>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Windows Server</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Active Directory (AD DS)</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Group Policy (GPO)</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Microsoft Entra ID</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Microsoft 365 Admin</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Microsoft Intune</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Domain Operations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill Card 3: Cloud, Automation & DevOps -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="p-2.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white">Cloud, Automation &amp; DevOps</h3>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">PowerShell Scripting</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Microsoft Azure</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">DevOps Fundamentals</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">Bulk AD Provisioning</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">SQL</span>
+              <span class="skill-tag px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200">ITSM &amp; SLA Support</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Experience -->
-    <section id="experience">
-      <h2>Professional <span>Experience</span></h2>
-      <div class="timeline-item">
-        <div class="timeline-header">
-          <h3>IT Support & Infrastructure Associate — AM/NS India (Site Operations)</h3>
-          <span>6+ Years Experience</span>
+    <!-- PROFESSIONAL EXPERIENCE SECTION -->
+    <section id="experience" class="py-16 border-b border-slate-800/80 reveal">
+      <div class="mb-10">
+        <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold">// Career Track</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">
+          Professional <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Experience</span>
+        </h2>
+      </div>
+
+      <div class="relative pl-6 sm:pl-8 border-l-2 border-cyan-500/40">
+        <!-- Glowing Timeline Node -->
+        <div class="absolute -left-[11px] top-1 w-5 h-5 rounded-full bg-slate-950 border-2 border-cyan-400 shadow-[0_0_12px_#38bdf8]"></div>
+
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 mb-5 border-b border-slate-800">
+            <div>
+              <h3 class="text-xl font-bold text-white">
+                IT Support &amp; Infrastructure Associate
+              </h3>
+              <p class="text-cyan-400 font-medium text-sm sm:text-base mt-0.5">
+                AM/NS India (Site Operations)
+              </p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs sm:text-sm font-mono font-semibold self-start sm:self-center">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              6+ Years Experience
+            </span>
+          </div>
+
+          <ul class="space-y-3.5 text-slate-300 text-sm sm:text-base">
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+              <span>Managed enterprise IT infrastructure, Active Directory domain operations, and Windows Server administration across industrial and mining site environments.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+              <span>Administered L2/L3 network switches, structured cabling, and large-scale IP surveillance networks ensuring high uptime and rapid fault resolution.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+              <span>Implemented firewall rules, Site-to-Site VPN connectivity, and endpoint compliance policies while meeting strict operational SLAs.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+              <span>Engineered custom PowerShell automation scripts to eliminate manual workstation domain-join and bulk user onboarding bottlenecks.</span>
+            </li>
+          </ul>
         </div>
-        <ul>
-          <li>Managed enterprise IT infrastructure, Active Directory domain operations, and Windows Server administration across industrial and mining site environments.</li>
-          <li>Administered L2/L3 network switches, structured cabling, and large-scale IP surveillance networks ensuring high uptime and rapid fault resolution.</li>
-          <li>Implemented firewall rules, Site-to-Site VPN connectivity, and endpoint compliance policies while meeting strict operational SLAs.</li>
-          <li>Engineered custom PowerShell automation scripts to eliminate manual workstation domain-join and bulk user onboarding bottlenecks.</li>
-        </ul>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects">
-      <h2>Featured <span>Infrastructure Projects</span></h2>
-      <div class="grid-3">
-        <div class="card">
+    <!-- FEATURED PROJECTS SECTION -->
+    <section id="projects" class="py-16 border-b border-slate-800/80 reveal">
+      <div class="mb-10">
+        <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold">// Production Deployments</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">
+          Featured <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Infrastructure Projects</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Project 1 -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
           <div>
-            <h3>FortiGate IPSec Site-to-Site VPN</h3>
-            <p style="color: var(--muted); font-size: 0.92rem;">
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 transition">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition mb-2.5">
+              FortiGate IPSec Site-to-Site VPN
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
               Designed and configured encrypted Site-to-Site IPSec VPN tunnels via FortiGate CLI with Phase 1/Phase 2 security proposals, static routes, and firewall policies for branch-to-HQ traffic.
             </p>
           </div>
-          <div class="tags">
-            <span class="tag">FortiGate CLI</span>
-            <span class="tag">IPSec VPN</span>
-            <span class="tag">Security Policies</span>
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800/80">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-cyan-300 border border-slate-700 text-xs font-mono">FortiGate CLI</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-cyan-300 border border-slate-700 text-xs font-mono">IPSec VPN</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-cyan-300 border border-slate-700 text-xs font-mono">Security Policies</span>
           </div>
         </div>
-        <div class="card">
+
+        <!-- Project 2 -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
           <div>
-            <h3>Enterprise AD & Domain Automation</h3>
-            <p style="color: var(--muted); font-size: 0.92rem;">
+            <div class="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-5 group-hover:scale-110 transition">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition mb-2.5">
+              Enterprise AD &amp; Domain Automation
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
               Standardized Windows workstation provisioning and Active Directory account creation using automated PowerShell workflows with built-in NetBIOS naming validation.
             </p>
           </div>
-          <div class="tags">
-            <span class="tag">Active Directory</span>
-            <span class="tag">PowerShell</span>
-            <span class="tag">Windows Server</span>
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800/80">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-blue-300 border border-slate-700 text-xs font-mono">Active Directory</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-blue-300 border border-slate-700 text-xs font-mono">PowerShell</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-blue-300 border border-slate-700 text-xs font-mono">Windows Server</span>
           </div>
         </div>
-        <div class="card">
+
+        <!-- Project 3 -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between group">
           <div>
-            <h3>Industrial Surveillance & LAN Backbone</h3>
-            <p style="color: var(--muted); font-size: 0.92rem;">
+            <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-5 group-hover:scale-110 transition">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition mb-2.5">
+              Industrial Surveillance &amp; LAN Backbone
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
               Maintained multi-site CCTV surveillance and segmented VLAN networks across remote mining operations with proactive hardware and link diagnostics.
             </p>
           </div>
-          <div class="tags">
-            <span class="tag">VLANs & Switching</span>
-            <span class="tag">CCTV Infra</span>
-            <span class="tag">Diagnostics</span>
+          <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-slate-800/80">
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-emerald-300 border border-slate-700 text-xs font-mono">VLANs &amp; Switching</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-emerald-300 border border-slate-700 text-xs font-mono">CCTV Infra</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-emerald-300 border border-slate-700 text-xs font-mono">Diagnostics</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- GitHub Scripts Repository Section -->
-    <section id="scripts">
-      <h2>PowerShell & Automation <span>Repositories</span></h2>
-      <div class="grid-2">
-        <div class="card">
+    <!-- GITHUB SCRIPTS REPOSITORY SECTION -->
+    <section id="scripts" class="py-16 border-b border-slate-800/80 reveal">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold">// Open-Source SysAdmin Tools</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">
+            PowerShell &amp; Automation <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Repositories</span>
+          </h2>
+        </div>
+        <a href="https://github.com/iam0khan" target="_blank" rel="noopener noreferrer" class="text-sm font-mono text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1.5">
+          Explore all repos on GitHub (@iam0khan) &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Script Card 1 -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
           <div>
-            <h3>Create-BulkADUsers.ps1</h3>
-            <p style="color: var(--muted); font-size: 0.92rem;">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <h3 class="text-lg font-bold font-mono text-white">Create-BulkADUsers.ps1</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono">PowerShell / AD DS</span>
+            </div>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
               Automated CSV-driven Active Directory user provisioning script that assigns Organizational Units (OUs), sets secure default passwords, and logs creation status.
             </p>
+
+            <!-- Live Code Snippet Preview -->
+            <div class="rounded-xl bg-[#050811] border border-slate-800 p-3.5 font-mono text-xs text-slate-300 overflow-x-auto">
+              <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800/80 text-[11px] text-slate-400">
+                <span>Snippet Preview</span>
+                <button onclick="copySnippet('snippet-1', this)" class="text-cyan-400 hover:text-cyan-300 font-sans font-medium">Copy Code</button>
+              </div>
+<pre id="snippet-1" class="leading-relaxed text-sky-200">Import-Module ActiveDirectory
+Import-Csv ".\Users.csv" | ForEach-Object {
+  New-ADUser -Name $_.DisplayName `
+    -SamAccountName $_.Username `
+    -Path $_.TargetOU `
+    -AccountPassword (ConvertTo-SecureString $_.Pass -AsPlainText -Force) `
+    -Enabled $true
+}</pre>
+            </div>
           </div>
-          <div class="repo-meta">
-            <span class="code-pill">PowerShell / AD DS</span>
-            <a href="https://github.com/iam0khan" target="_blank">View on GitHub &rarr;</a>
+
+          <div class="flex items-center justify-between mt-5 pt-4 border-t border-slate-800/80 text-sm">
+            <span class="text-slate-400 text-xs">Zero-touch bulk onboarding</span>
+            <a href="https://github.com/iam0khan" target="_blank" rel="noopener noreferrer" class="font-semibold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1">
+              View on GitHub &rarr;
+            </a>
           </div>
         </div>
-        <div class="card">
+
+        <!-- Script Card 2 -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
           <div>
-            <h3>Domain-Join-And-Rename.ps1</h3>
-            <p style="color: var(--muted); font-size: 0.92rem;">
-              Streamlined workstation onboarding script utilizing <code>Add-Computer -NewName</code> with automatic 15-character NetBIOS length validation and safe reboot handling.
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <h3 class="text-lg font-bold font-mono text-white">Domain-Join-And-Rename.ps1</h3>
+              </div>
+              <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono">PowerShell / SysAdmin</span>
+            </div>
+
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Streamlined workstation onboarding script utilizing <code class="text-cyan-300 bg-slate-900 px-1.5 py-0.5 rounded">Add-Computer -NewName</code> with automatic 15-character NetBIOS length validation and safe reboot handling.
             </p>
+
+            <!-- Live Code Snippet Preview -->
+            <div class="rounded-xl bg-[#050811] border border-slate-800 p-3.5 font-mono text-xs text-slate-300 overflow-x-auto">
+              <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800/80 text-[11px] text-slate-400">
+                <span>Snippet Preview</span>
+                <button onclick="copySnippet('snippet-2', this)" class="text-cyan-400 hover:text-cyan-300 font-sans font-medium">Copy Code</button>
+              </div>
+<pre id="snippet-2" class="leading-relaxed text-emerald-200">if ($NewHostName.Length -le 15) {
+  Add-Computer -DomainName "corp.enterprise.local" `
+    -NewName $NewHostName `
+    -Credential $DomainCred `
+    -Restart -Force
+} else {
+  Write-Warning "NetBIOS limit exceeded (Max 15 chars)!"
+}</pre>
+            </div>
           </div>
-          <div class="repo-meta">
-            <span class="code-pill">PowerShell / SysAdmin</span>
-            <a href="https://github.com/iam0khan" target="_blank">View on GitHub &rarr;</a>
+
+          <div class="flex items-center justify-between mt-5 pt-4 border-t border-slate-800/80 text-sm">
+            <span class="text-slate-400 text-xs">NetBIOS-safe workstation join</span>
+            <a href="https://github.com/iam0khan" target="_blank" rel="noopener noreferrer" class="font-semibold text-cyan-400 hover:text-cyan-300 inline-flex items-center gap-1">
+              View on GitHub &rarr;
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Training & Certifications -->
-    <section id="certifications">
-      <h2>Training & <span>Certifications</span></h2>
-      <div class="grid-3">
-        <div class="card">
-          <div>
-            <h3>DevOps Engineering Training</h3>
-            <p style="color: var(--muted); font-size: 0.9rem;">Multi-session training covering CI/CD pipelines, infrastructure automation, and cloud-native operational workflows.</p>
+    <!-- TRAINING & CERTIFICATIONS SECTION -->
+    <section id="certifications" class="py-16 border-b border-slate-800/80 reveal">
+      <div class="mb-10">
+        <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-semibold">// Continuous Learning</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">
+          Training &amp; <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Certifications</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </span>
+            <h3 class="text-lg font-bold text-white">DevOps Engineering Training</h3>
           </div>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Multi-session training covering CI/CD pipelines, infrastructure automation, and cloud-native operational workflows.
+          </p>
         </div>
-        <div class="card">
-          <div>
-            <h3>Cybersecurity Bootcamp</h3>
-            <p style="color: var(--muted); font-size: 0.9rem;">Practical training in threat intelligence, phishing analysis, network hardening, and perimeter firewall defense.</p>
+
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </span>
+            <h3 class="text-lg font-bold text-white">Cybersecurity Bootcamp</h3>
           </div>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Practical training in threat intelligence, phishing analysis, network hardening, and perimeter firewall defense.
+          </p>
         </div>
-        <div class="card">
-          <div>
-            <h3>SQL & Azure Cloud Labs</h3>
-            <p style="color: var(--muted); font-size: 0.9rem;">Certified in SQL fundamentals alongside hands-on labs in Microsoft Azure networking, Entra ID, and Intune.</p>
+
+        <div class="glass-card rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="p-2 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+              </svg>
+            </span>
+            <h3 class="text-lg font-bold text-white">SQL &amp; Azure Cloud Labs</h3>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">
+            Certified in SQL fundamentals alongside hands-on labs in Microsoft Azure networking, Entra ID, and Intune.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-16 reveal">
+      <div class="glass-card rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden border border-cyan-500/30">
+        <div class="max-w-2xl mx-auto space-y-5 relative z-10">
+          <span class="px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono uppercase tracking-wider">
+            Ready for Deployment
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+            Get In <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Touch</span>
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Available for immediate interviews for <strong class="text-white">Network Engineer</strong>, <strong class="text-white">System Administrator</strong>, and <strong class="text-white">IT Infrastructure Specialist</strong> roles in Saudi Arabia (GCC) and India.
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-4 pt-4">
+            <a href="mailto:massawar.khan@example.com" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-cyan-500/25 transition hover:-translate-y-0.5">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              Email Me Directly
+            </a>
+
+            <a href="https://linkedin.com/in/iam0khan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-white font-semibold text-sm sm:text-base transition hover:-translate-y-0.5">
+              LinkedIn Profile
+            </a>
+
+            <a href="https://github.com/iam0khan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-white font-semibold text-sm sm:text-base transition hover:-translate-y-0.5">
+              GitHub (@iam0khan)
+            </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" style="border-bottom: none;">
-      <div class="contact-box">
-        <h2>Get In <span>Touch</span></h2>
-        <p>Available for immediate interviews for Network Engineer, System Administrator, and IT Infrastructure Specialist roles in Saudi Arabia (GCC) and India.</p>
-        <div class="contact-links">
-          <a href="mailto:massawar.khan@example.com" class="btn btn-primary">Email Me Directly</a>
-          <a href="https://linkedin.com/in/iam0khan" target="_blank" class="btn btn-outline">LinkedIn Profile</a>
-          <a href="https://github.com/iam0khan" target="_blank" class="btn btn-outline">GitHub (@iam0khan)</a>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <footer>
-    <div class="container">
-      &copy; 2026 Massawar Ali Khan (@iam0khan) &bull; Network & IT Infrastructure Portfolio
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 py-8 text-center text-slate-400 text-sm relative z-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        &copy; 2026 <strong class="text-slate-200">Massawar Ali Khan</strong> (@iam0khan) &bull; Network &amp; IT Infrastructure Portfolio
+      </div>
+      <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
+        <span class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span> All Systems Operational
+        </span>
+      </div>
     </div>
   </footer>
 
+  <!-- INTERACTIVE JAVASCRIPT -->
+  <script>
+    // 1. Mobile Navigation Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      menuIconOpen.classList.toggle('hidden');
+      menuIconClose.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuIconOpen.classList.remove('hidden');
+        menuIconClose.classList.add('hidden');
+      });
+    });
+
+    // 2. Interactive Hero CLI Terminal Typewriter
+    const terminalSnippets = {
+      forti: {
+        status: 'IPSec Tunnel: UP (Encrypted)',
+        lines: [
+          '<span class="text-emerald-400">FG100F-HQ #</span> config vpn ipsec phase1-interface',
+          '<span class="text-emerald-400">FG100F-HQ (phase1) #</span> edit "HQ-to-Branch-VPN"',
+          '<span class="text-slate-400">set interface "wan1"</span>',
+          '<span class="text-slate-400">set peertype any</span>',
+          '<span class="text-slate-400">set proposal aes256-sha256</span>',
+          '<span class="text-slate-400">set dhgrp 14</span>',
+          '<span class="text-slate-400">set remote-gw 198.51.100.42</span>',
+          '<span class="text-emerald-400">FG100F-HQ (phase1) #</span> next',
+          '<span class="text-cyan-400">&gt; Phase-1 &amp; Phase-2 SAs established [OK]</span>'
+        ]
+      },
+      ps: {
+        status: 'AD DS Provisioning: Completed',
+        lines: [
+          '<span class="text-cyan-400">PS C:\\Admin&gt;</span> .\\Create-BulkADUsers.ps1',
+          '<span class="text-slate-400">[INFO] Importing Users.csv (48 records)...</span>',
+          '<span class="text-slate-400">[OK] Validating NetBIOS &amp; OU paths...</span>',
+          '<span class="text-emerald-400">[CREATED]</span> User: m.khan &rarr; OU=Infra,DC=corp,DC=local',
+          '<span class="text-emerald-400">[CREATED]</span> Security Group:VPN-Authorized assigned',
+          '<span class="text-cyan-400">PS C:\\Admin&gt;</span> Get-ADReplicationPartnerMetadata',
+          '<span class="text-emerald-300">&gt; Domain Controllers in sync. 0 Errors.</span>'
+        ]
+      }
+    };
+
+    let currentTab = 'forti';
+    let typingTimer = null;
+
+    function renderTerminal(mode) {
+      const container = document.getElementById('terminal-content');
+      const statusEl = document.getElementById('terminal-status');
+      const data = terminalSnippets[mode];
+
+      if (typingTimer) clearTimeout(typingTimer);
+      container.innerHTML = '';
+      statusEl.textContent = data.status;
+
+      let lineIndex = 0;
+
+      function typeNextLine() {
+        if (lineIndex < data.lines.length) {
+          const lineDiv = document.createElement('div');
+          lineDiv.innerHTML = data.lines[lineIndex];
+          container.appendChild(lineDiv);
+          lineIndex++;
+          typingTimer = setTimeout(typeNextLine, 260);
+        } else {
+          const cursorSpan = document.createElement('span');
+          cursorSpan.className = 'cursor-blink mt-1';
+          container.appendChild(cursorSpan);
+        }
+      }
+
+      typeNextLine();
+    }
+
+    function switchTerminalTab(mode) {
+      currentTab = mode;
+      const tabForti = document.getElementById('tab-forti');
+      const tabPs = document.getElementById('tab-ps');
+
+      if (mode === 'forti') {
+        tabForti.className = 'px-2.5 py-1 rounded-md bg-cyan-500/20 text-cyan-300 font-semibold transition';
+        tabPs.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-slate-200 transition';
+      } else {
+        tabPs.className = 'px-2.5 py-1 rounded-md bg-cyan-500/20 text-cyan-300 font-semibold transition';
+        tabForti.className = 'px-2.5 py-1 rounded-md text-slate-400 hover:text-slate-200 transition';
+      }
+      renderTerminal(mode);
+    }
+
+    // 3. Copy Code Snippet Helper (Uses iframe-safe fallback)
+    function copySnippet(elementId, btnElement) {
+      const text = document.getElementById(elementId).innerText;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        const originalText = btnElement.innerText;
+        btnElement.innerText = 'Copied!';
+        btnElement.classList.add('text-emerald-400');
+        setTimeout(() => {
+          btnElement.innerText = originalText;
+          btnElement.classList.remove('text-emerald-400');
+        }, 1800);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // 4. Scroll Reveal Observer
+    function initScrollReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    window.onload = function () {
+      renderTerminal('forti');
+      initScrollReveal();
+    };
+  </script>
 </body>
 </html>
